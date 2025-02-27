@@ -11,19 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pos_devices', function (Blueprint $table) {
+        Schema::create('product_store_stocks', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('tenant_id');
+            $table->uuid('product_id');
             $table->uuid('store_id');
-            $table->string('name');
-            $table->string('device_id')->unique();
-            $table->string('device_type')->nullable();
-            $table->timestamp('last_sync')->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->json('settings')->nullable();
+            $table->integer('stock_quantity')->default(0);
+            $table->integer('low_stock_alert')->nullable();
             $table->timestamps();
 
-            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
+            $table->unique(['product_id', 'store_id']);
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pos_devices');
+        Schema::dropIfExists('product_store_stocks');
     }
 };

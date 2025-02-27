@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,15 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('system_settings', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('tenant_id');
-            $table->string('name');
+            $table->string('key')->unique();
+            $table->text('value')->nullable();
             $table->text('description')->nullable();
-            $table->string('color')->nullable();
+            $table->boolean('is_public')->default(false);
+            $table->string('type')->default('string'); // 'string', 'boolean', 'integer', 'json', etc.
             $table->timestamps();
-
-            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('system_settings');
     }
 };

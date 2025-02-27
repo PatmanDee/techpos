@@ -1,4 +1,3 @@
-// app/Models/Tenant.php
 <?php
 
 namespace App\Models;
@@ -6,30 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use App\Models\User;
-use App\Models\Store;
-use App\Models\TenantPaymentHistory;
+use Illuminate\Support\Str;
 
 class Tenant extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'address',
-        'settings',
-        'subscription_plan',
-        'subscription_status',
-        'max_stores',
-        'max_users',
-        'max_products',
-        'features', // Stored as JSON
-        'billing_day',
-        'activated_at',
-        'suspended_at'
-    ];
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+    public $incrementing = false;
+    protected $guarded = [];
 
     protected $casts = [
         'settings' => 'array',
@@ -51,28 +36,24 @@ class Tenant extends Model
         return $this->hasMany(Store::class);
     }
 
-    public function paymentHistory()
+    public function paymentHistories() // Renamed for consistency
     {
         return $this->hasMany(TenantPaymentHistory::class);
     }
 
     // Helper methods
-    public function isActive()
+    public function isActive(): bool
     {
-        return $this->subscription_status === 'active' && $this->activated_at !== null && $this->suspended_at === null;
+        return $this->subscription_status === 'active' && !is_null($this->activated_at) && is_null($this->suspended_at);
     }
 
-    public function isSuspended()
+    public function isSuspended(): bool
     {
-        return $this->suspended_at !== null;
+        return !is_null($this->suspended_at);
     }
 
-    public function hasFeature($feature)
+    public function hasFeature(string $feature): bool
     {
-        if (!$this->features) {
-            return false;
-        }
-
-        return in_array($feature, $this->features);
+        return is_array($this->features) && in_array($feature, $this->features);
     }
 }

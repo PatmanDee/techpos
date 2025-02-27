@@ -54,7 +54,7 @@
 
             <button class="btn btn-primary d-grid w-100 mb-3">Reset Password</button>
             <div class="text-center">
-              <a href="{{ route('login') }}">
+              <a href="{{url('auth/login')}}">
                 <i class="bx bx-chevron-left scaleX-n1-rtl"></i>
                 Back to login
               </a>

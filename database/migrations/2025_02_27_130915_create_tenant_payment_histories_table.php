@@ -12,8 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tenant_payment_histories', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->uuid('tenant_id');
+            $table->decimal('amount', 10, 2);
+            $table->string('currency')->default('USD');
+            $table->string('payment_method');
+            $table->string('transaction_id')->nullable();
+            $table->string('status')->default('completed');
+            $table->text('description')->nullable();
+            $table->timestamp('payment_date');
+            $table->timestamp('subscription_period_start')->nullable();
+            $table->timestamp('subscription_period_end')->nullable();
             $table->timestamps();
+
+            $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
         });
     }
 
