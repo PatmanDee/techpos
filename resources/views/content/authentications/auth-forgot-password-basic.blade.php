@@ -1,4 +1,4 @@
-@extends('layouts/blankLayout')
+@extends('layoutsblankLayout')
 
 @section('title', 'Forgot Password Basic - Pages')
 
