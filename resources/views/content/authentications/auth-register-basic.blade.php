@@ -19,6 +19,33 @@
 <!-- Add these before your closing body tag -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
 
+<style>
+  /* Make the telephone input match the form-control width */
+  .iti {
+    display: block !important;
+    width: 100%;
+  }
+
+  /* Override the telephone input styling to match other inputs */
+  .iti .form-control {
+    padding-left: 90px !important; /* Give space for the country code */
+  }
+
+  /* Match the height of the phone input with other inputs */
+  .iti--separate-dial-code .iti__selected-flag {
+    height: 100% !important;
+    border-radius: 0.375rem 0 0 0.375rem;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ced4da;
+  }
+
+  /* Fix border radius */
+  .iti__flag-container + .form-control {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Initialize the plugin
@@ -70,7 +97,6 @@
           </div>
           <!-- /Logo -->
           <h4 class="mb-1">Run Your Business Smarter 🚀</h4>
-          <p class="mb-6">The Portable POS System that grows with you</p>
 
           <form id="formAuthentication" class="mb-6" action="{{url('/register')}}" method="POST">
             @csrf
