@@ -23,8 +23,8 @@
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-1">Welcome to {{config('variables.templateName')}}! 👋</h4>
-          <p class="mb-6">Please sign-in to your account and start the adventure</p>
+          <h4 class="mb-1">Welcome to Back Office! 👋</h4>
+          <p class="mb-6">Sign in to access your Business Dashboard and Control Center</p>
 
           <form id="formAuthentication" class="mb-6" action="{{url('/')}}" method="GET">
             <div class="mb-6">
