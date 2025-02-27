@@ -24,8 +24,8 @@
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-1">Adventure starts here 🚀</h4>
-          <p class="mb-6">Make your app management easy and fun!</p>
+          <h4 class="mb-1">Run Your Business Smarter 🚀</h4>
+          <p class="mb-6">The Portable POS System that grows with you</p>
 
           <form id="formAuthentication" class="mb-6" action="{{url('/')}}" method="GET">
             <div class="mb-6">
