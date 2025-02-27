@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import html from '@rollup/plugin-html';
+import tailwindcss from 'tailwindcss';
 import { glob } from 'glob';
 
 /**
@@ -52,7 +52,11 @@ export default defineConfig({
         ...FontsScssFiles
       ],
       refresh: true
-    }),
-    html()
-  ]
+    })
+  ],
+  css: {
+    postcss: {
+      plugins: [tailwindcss, require('autoprefixer')]
+    }
+  }
 });
